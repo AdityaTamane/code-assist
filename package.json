@@ -1,0 +1,86 @@
+{
+    "name": "ai-code-assistant",
+    "displayName": "AI Code Assistant",
+    "description": "AI-powered code analysis and modification tool for VS Code",
+    "version": "1.0.1",
+    "publisher": "YourPublisherName",
+    "engines": {
+        "vscode": "^1.75.0"
+    },
+    "categories": [
+        "Programming Languages",
+        "Linters",
+        "AI"
+    ],
+    "activationEvents": [
+        "onStartupFinished",
+        "onCommand:aiAssistant.analyze",
+        "onCommand:aiAssistant.suggestChanges",
+        "onCommand:aiAssistant.setApiKey"
+    ],
+    "main": "./extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "aiAssistant.analyze",
+                "title": "AI Code Assistant: Analyze Codebase",
+                "category": "AI Code Assistant"
+            },
+            {
+                "command": "aiAssistant.suggestChanges",
+                "title": "AI Code Assistant: Suggest Code Changes",
+                "category": "AI Code Assistant"
+            },
+            {
+                "command": "aiAssistant.setApiKey",
+                "title": "AI Code Assistant: Set OpenAI API Key",
+                "category": "AI Code Assistant"
+            },
+            {
+                "command": "test.command",
+                "title": "AI Code Assistant: Test Command (Internal)",
+                "category": "AI Code Assistant",
+                "when": "false"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "aiAssistant.suggestChanges",
+                    "group": "modification@1",
+                    "when": "editorHasSelection || editorTextFocus" 
+                }
+            ],
+            "commandPalette": [
+                {
+                    "command": "aiAssistant.analyze",
+                    "when": "true"
+                },
+                {
+                    "command": "aiAssistant.suggestChanges",
+                    "when": "true"
+                },
+                {
+                    "command": "aiAssistant.setApiKey",
+                    "when": "true"
+                }
+            ]
+        }
+    },
+    "dependencies": {
+        "openai": "^4.0.0"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.75.0",
+        "@types/node": "^18.11.11",
+        "typescript": "^5.0.0",
+        "@vscode/test-electron": "^2.3.0"
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "test": "npm run compile && npm run unit-test",
+        "unit-test": "node ./out/test/runTests.js"
+    }
+}
